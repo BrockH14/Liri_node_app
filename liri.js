@@ -11,29 +11,84 @@ var spotify = new Spotify(keys.spotify);
 
 var input1 = process.argv[2];
 var input2 = process.argv.slice(3).join(" ");
-function run(){
 
-if (input1 === "concert-this"){
+
+switch (input1){
+    case "concert-this":
+        concertIt(input2)
+        break;
+    case "spotify-this-song":
+        spotIt(input2)
+        break;
+    case "movie-this":
+        movieIt(input2)
+        break;
+    case "do-what-it-says":
+        doWhat(input2)
+        break;
+    default:
+    break;
+}
+function concertIt(artist){
     artist = input2
+    axios
+    .get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
+    .then(function(response) {
+    console.log("Venue name:", response.data[0].venue.name);
+    console.log("Venue location:", response.data[0].venue.city);
+    var eventDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
+    console.log("Date of the Event:", eventDate);
 
-
-    https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp
+  })
+  .catch(function(error) {
+    if (error.response) {
+        console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
+        else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
+        console.log(error.config);
+  });
 }
-function spot(){ 
-if (input1 === "spotify-this-song"){
+
+
+function spotIt(song){ 
     song = input2
-
-
-}
-}
-if (input1 === "movie-this"){
+    spotify.search({ type: 'track', query: song }, function (err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+    //Artist(s)
+    console.log("Artists: ", data.tracks.items[0].album.artists[0].name);
+    //Song name 
+    console.log("Song Name: ", data.track.items[0]);
+    // A preview link of the song from Spotify
+    console.log("Preview Link: ", data.tracks.items[0].preview_url);
+    // The album that the song is from
+    console.log("Album Name: ", data.tracks.items[0].album.name);
+});
+};
+function movieIt(movie){
     movie = input2
+    axios
+    .get("http://www.omdbapi.com/?i=tt3896198&apikey=426a948b?t=" + movie)
+    .then(function(response) {
+    console.log(response.data);
+  })
+  .catch(function(error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  });
+
 
 }
-if (input1 === "do-what-it-says"){
+function doWhat(){
     input2 = 
     spot()
 
 }
-}
-run()
