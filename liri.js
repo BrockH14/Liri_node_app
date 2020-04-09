@@ -5,13 +5,10 @@ var moment = require("moment");
 var Spotify = require('node-spotify-api');
 var fs = require("fs");
 
-
-
 var spotify = new Spotify(keys.spotify);
 
 var input1 = process.argv[2];
 var input2 = process.argv.slice(3).join(" ");
-
 
 switch (input1){
     case "concert-this":
@@ -94,7 +91,13 @@ function movieIt(movie){
 }
 
 function doWhat(){
-    input2 = 
-    spot()
-
-}
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+        return console.log(error);
+        }
+        var dataArr = data.split(",");
+        input1 = dataArr[0];
+        input2 = dataArr[1];
+        spotIt();
+});
+};
