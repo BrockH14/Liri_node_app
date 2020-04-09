@@ -35,13 +35,12 @@ function concertIt(artist){
     console.log("Venue location:", response.data[0].venue.city);
     var eventDate = moment(response.data[0].datetime).format('MM/DD/YYYY');
     console.log("Date of the Event:", eventDate);
-
-  })
-  .catch(function(error) {
-    if (error.response) {
-        console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
-        else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
-        console.log(error.config);
+    })
+    .catch(function(error) {
+        if (error.response) {
+            console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
+            else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
+            console.log(error.config);
   });
 }
 
@@ -49,18 +48,12 @@ function spotIt(song){
     song = input2
     if (song === ""){
         song = "The Sign";
-    }
+    }else {}
     spotify.search({ type: 'track', query: song }, function (err, data) {
-        if (err) {
-          return console.log('Error occurred: ' + err);
-        }
-    //Artist(s)
+        if (err) {return console.log('Error occurred: ' + err);}
     console.log("Artists: ", data.tracks.items[0].album.artists[0].name);
-    //Song name 
     console.log("Song Name: ", data.tracks.items[0].name);
-    //Preview link
     console.log("Preview Link: ", data.tracks.items[0].preview_url);
-    //The album
     console.log("Album Name: ", data.tracks.items[0].album.name);
 });
 };
@@ -70,6 +63,11 @@ function movieIt(movie){
     if (movie === ""){
         movie = "Mr. Nobody";
     }
+    if(movie === "Mr. Nobody"){
+        console.log("-----------------------");
+        console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+        console.log("It's on Netflix!");
+      }
     axios
     .get("http://www.omdbapi.com/?t=" + movie + "&apikey=426a948b&plot=short&tomatoes=true")
     .then(function(response) {
@@ -81,23 +79,27 @@ function movieIt(movie){
         console.log("Language: ", response.data.Language);
         console.log("Plot: ", response.data.Plot);
         console.log("Actors: ", response.data.Actors);
-  })
-  .catch(function(error) {
-    if (error.response) {
-        console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
-        else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
-        console.log(error.config);
+    })
+    .catch(function(error) {
+        if (error.response) {
+            console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
+            else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
+            console.log(error.config);
   });
 }
-
 function doWhat(){
     fs.readFile("random.txt", "utf8", function(error, data) {
-        if (error) {
-        return console.log(error);
-        }
+        if (error) {return console.log(error);}
         var dataArr = data.split(",");
-        input1 = dataArr[0];
-        input2 = dataArr[1];
-        spotIt();
+        console.log(dataArr)
+        if (dataArr[0] === "concert-this"){
+            concertIt(dataArr[1])
+        }
+        if (dataArr[2] === "spotify-this-song"){
+            spotIt(dataArr[3])
+        }
+        if (dataArr[4] === "movie-this"){
+            movieIt(dataArr[5])
+        }
 });
 };
