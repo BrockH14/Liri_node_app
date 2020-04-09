@@ -48,9 +48,11 @@ function concertIt(artist){
   });
 }
 
-
 function spotIt(song){ 
     song = input2
+    if (song === ""){
+        song = "The Sign"
+    }
     spotify.search({ type: 'track', query: song }, function (err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
@@ -58,13 +60,14 @@ function spotIt(song){
     //Artist(s)
     console.log("Artists: ", data.tracks.items[0].album.artists[0].name);
     //Song name 
-    console.log("Song Name: ", data.track.items[0]);
-    // A preview link of the song from Spotify
+    console.log("Song Name: ", data.tracks.items[0].name);
+    //Preview link
     console.log("Preview Link: ", data.tracks.items[0].preview_url);
-    // The album that the song is from
+    //The album
     console.log("Album Name: ", data.tracks.items[0].album.name);
 });
 };
+
 function movieIt(movie){
     movie = input2
     axios
