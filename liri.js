@@ -51,7 +51,7 @@ function concertIt(artist){
 function spotIt(song){ 
     song = input2
     if (song === ""){
-        song = "The Sign"
+        song = "The Sign";
     }
     spotify.search({ type: 'track', query: song }, function (err, data) {
         if (err) {
@@ -70,26 +70,29 @@ function spotIt(song){
 
 function movieIt(movie){
     movie = input2
+    if (movie === ""){
+        movie = "Mr. Nobody";
+    }
     axios
-    .get("http://www.omdbapi.com/?i=tt3896198&apikey=426a948b?t=" + movie)
+    .get("http://www.omdbapi.com/?t=" + movie + "&apikey=426a948b&plot=short&tomatoes=true")
     .then(function(response) {
-    console.log(response.data);
+        console.log("Title of the movie: ", response.data.Title);
+        console.log("Year the movie came out: ", response.data.Year);
+        console.log("IMDB Rating: ", response.data.imdbRating);
+        console.log("Rotten Tomatoes Rating of the movie: ", response.data.tomatoRating);
+        console.log("Country where the movie was produced: ", response.data.Country);
+        console.log("Language: ", response.data.Language);
+        console.log("Plot: ", response.data.Plot);
+        console.log("Actors: ", response.data.Actors);
   })
   .catch(function(error) {
     if (error.response) {
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
-      console.log(error.request);
-    } else {
-      console.log("Error", error.message);
-    }
-    console.log(error.config);
+        console.log(error.response.data);console.log(error.response.status);console.log(error.response.headers);} 
+        else if (error.request) {console.log(error.request);} else {console.log("Error", error.message);}
+        console.log(error.config);
   });
-
-
 }
+
 function doWhat(){
     input2 = 
     spot()
