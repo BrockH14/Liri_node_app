@@ -93,6 +93,6 @@ function doWhat(){
         var dataArr = data.split(",");
         input1 = dataArr[0];
         input2 = dataArr[1];
-        spotIt(song);
+        spotIt();
 });
 };
