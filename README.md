@@ -66,3 +66,7 @@ This will create a responce from random.txt
 
 ## Author
 Brock Horton 
+
+## Video Link 
+https://youtu.be/2QbO5Bmctp8
+
