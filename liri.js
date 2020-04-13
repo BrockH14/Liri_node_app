@@ -91,15 +91,8 @@ function doWhat(){
     fs.readFile("random.txt", "utf8", function(error, data) {
         if (error) {return console.log(error);}
         var dataArr = data.split(",");
-        console.log(dataArr)
-        if (dataArr[0] === "concert-this"){
-            concertIt(dataArr[1])
-        }
-        if (dataArr[2] === "spotify-this-song"){
-            spotIt(dataArr[3])
-        }
-        if (dataArr[4] === "movie-this"){
-            movieIt(dataArr[5])
-        }
+        input1 = dataArr[0];
+        input2 = dataArr[1];
+        spotIt(song);
 });
 };
