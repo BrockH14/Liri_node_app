@@ -68,5 +68,4 @@ This will create a responce from random.txt
 Brock Horton 
 
 ## Video Link 
-https://youtu.be/2QbO5Bmctp8
-
+https://youtu.be/GiaVQ43uAh8
